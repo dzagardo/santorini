@@ -1,0 +1,192 @@
+#board {
+  display: grid;
+  grid-template-columns: 14vmin 14vmin 14vmin 14vmin 14vmin ;
+  grid-template-rows: 14vmin 14vmin 14vmin 14vmin 14vmin ;
+  justify-content: center;
+  padding: 20px
+}
+
+#cell {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  font-size: 30px;
+  height: 13vmin;
+  width: 13vmin;
+}
+
+#handlebars {
+  font-family: Avenir;
+  visibility: hidden;
+  display: none;
+}
+
+#bottombar {
+  font-family: Avenir;
+  height: 5vh;
+}
+
+#gods {
+  font-family: Avenir;
+  height: 5vh;
+}
+
+#gods select {
+  font-family: Avenir;
+  width: 50%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  float: left;
+  font-size: 2vw
+}
+
+#instructions {
+  font-family: Avenir;
+  height: 18vh;
+  background-color: white;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+#bottombar button {
+  font-family: Avenir;
+  width: 50%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  float: left;
+  font-size: 2vw
+}
+
+html,
+body {
+  height: 100%;
+  float: center;
+  justify-content: center;
+}
+
+.center {
+  font-family: Avenir;
+  justify-content: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 7.5%;
+}
+
+#body, #body{
+  padding:10px 30vmin; /* top and bottom 10px, left and right 30vmin */
+}
+
+
+#left {
+  float: left;
+  border-radius: 10px;
+  color: white;
+  font-family: Avenir;
+  padding: 10px;
+}
+
+#right {
+  float: right;
+  border-radius: 10px;
+  color: white;
+  font-family: Avenir;
+  padding: 10px;
+}
+
+#center {
+  font-family: Avenir;
+  justify-content: center;
+  float: center;
+}
+
+.arrowpopup {
+  font-family: Avenir;
+  font-size: 20px;
+
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+.arrowpopup .tooltiptext {
+  visibility: hidden;
+  width: 500px;
+  background-color: #856;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  padding: 9px ;
+  position: absolute;
+  top: 150%;
+  /* left: 50%; */
+  margin-left: -285px;
+}
+.arrowpopup .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #856 transparent transparent transparent;
+}
+.arrowpopup .show {
+  visibility: visible;
+}
+
+#cell {
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 255, 0.493), 0 0 10px rgba(0, 0, 255, 0.356);
+  -moz-box-shadow: inset 0 0 10px rgba(0, 0, 255, 0.212), 0 0 10px rgba(0, 0, 255, 0.801);
+  box-shadow: inset 0 0 10px rgba(0, 0, 255, 0.842), 0 0 10px rgba(0, 0, 255, 0.733);
+  
+  -webkit-border-radius: 18px;
+  -moz-border-radius: 18px;
+  border-radius: 18px;
+}
+
+#cell {
+  background: #2195f356;
+  display: block;
+  text-decoration: none;
+  font: bold 17px Helvetica, Arial, sans-serif;
+  color: #fff;
+  text-align: center
+}
+
+#cell:hover {
+  -webkit-box-shadow: inset 0 0 30px #f00, 0 0 30px #f00;
+  -moz-box-shadow: inset 0 0 30px #f00, 0 0 30px #f00;
+  box-shadow: inset 0 0 30px #f00, 0 0 30px #f00;
+  
+  background: #f56565;
+}
+
+.god {
+  padding:1vmin 2vmin; /* top and bottom 10px, left and right 30vmin */
+  float: center;
+  font-size: 10px;
+  font-family: Avenir;
+  -webkit-border-radius: 38px;
+  -moz-border-radius: 38px;
+  border-radius: 38px;
+}
+
+.god {
+  font-family: Avenir;
+  text-decoration: none;
+  text-align: center
+}
+
+.god:hover {
+  font-family: Avenir;
+  -moz-box-shadow: inset 0 0 30px #f00, 0 0 30px #f00;
+  box-shadow: inset 0 0 30px #f00, 0 0 30px #f00;
+}
+
+.playable { background-color: red;}

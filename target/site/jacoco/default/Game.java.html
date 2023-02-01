@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Game.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hw3-santorini-dzagardo</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Game.java</span></div><h1>Game.java</h1><pre class="source lang-java linenums">/**
+ * Game class for Homework 3. Game has a board and two players.
+ * We initialize the board in this class, as well as players 1 and 2.
+ *
+ */
+public class Game {
+
+    private Board board;
+    private Player playerOne;
+    private Player playerTwo;
+<span class="fc" id="L11">    private int turn = 1;</span>
+    private static final int MAX_BOARD_INDEX = 4;
+    private static final int WIN_CONDITION = 3;
+
+    public Game() {
+<span class="nc" id="L16">        this(new Board());</span>
+<span class="nc" id="L17">    }</span>
+
+<span class="fc" id="L19">    public Game(Board board) {</span>
+<span class="fc" id="L20">        this.board = board;</span>
+<span class="fc" id="L21">        this.playerOne = new Player(1);</span>
+<span class="fc" id="L22">        this.playerTwo = new Player(2);</span>
+<span class="fc" id="L23">    }</span>
+
+    /**
+     * Helper function that checks if the move is valid.
+     * First conditional checks if buildPos is on the board.
+     * Second conditional checks if x coordinate is adjacent to Worker.
+     * Third conditional checks if y coordinate is adjacent to Worker.
+     * Fourth conditional checks if Space has room to build.
+     * Fifth conditional checks if Space is occupied.
+     * Sixth conditional checks if Space is Worker's current space.
+     * Seventh conditional checks if it is the Player's turn.
+     * Eighth conditional checks if the Player has moved.
+     * Ninth conditional checks if the Worker building is the Worker that has moved.
+     * @param w Worker for position analysis.
+     * @param x int x for x coordinate to validate build position.
+     * @param y int y for y coordinate to validate build position.
+     * @return true only if valid build position.
+     */
+    public boolean validateBuildPos(Worker w, int x, int y) {
+<span class="pc bpc" id="L42" title="3 of 8 branches missed.">        if (x &lt; 0 || y &lt; 0 || x &gt; MAX_BOARD_INDEX || y &gt; MAX_BOARD_INDEX) {</span>
+<span class="fc" id="L43">            return false;</span>
+        }
+<span class="pc bpc" id="L45" title="2 of 4 branches missed.">        if (x &gt; w.getPosition()[0][0] + 1 || x &lt; w.getPosition()[0][0] - 1) {</span>
+<span class="nc" id="L46">            return false;</span>
+        }
+<span class="pc bpc" id="L48" title="1 of 4 branches missed.">        if (y &gt; w.getPosition()[0][1] + 1 || y &lt; w.getPosition()[0][1] - 1) {</span>
+<span class="fc" id="L49">            return false;</span>
+        }
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        if (board.getSpace(x, y).getTowerHeight() &gt;= MAX_BOARD_INDEX) {</span>
+<span class="nc" id="L52">            return false;</span>
+        }
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (board.getSpace(x, y).getOccupancy()) {</span>
+<span class="nc" id="L55">            return false;</span>
+        }
+<span class="pc bpc" id="L57" title="2 of 4 branches missed.">        if (x == w.getPosition()[0][0] &amp;&amp; y == w.getPosition()[0][1]) {</span>
+<span class="fc" id="L58">            return false;</span>
+        }
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (w.getOwner() != turn) {</span>
+<span class="nc" id="L61">            return false;</span>
+        }
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (!getPlayerHelper(w.getOwner()).getHasMoved()) {</span>
+<span class="nc" id="L64">            return false;</span>
+        }
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (!w.getHasMoved()) {</span>
+<span class="nc" id="L67">            return false;</span>
+        }
+<span class="nc" id="L69">        return true;</span>
+    }
+
+    /**
+     * Helper function that checks if the move is valid.
+     * First conditional checks if position is on the board.
+     * Second conditional checks if x coordinate is adjacent to Worker.
+     * Third conditional checks if y coordinate is adjacent to Worker.
+     * Fourth conditional checks if Space has room to move.
+     * Fifth conditional checks if Space is occupied.
+     * Sixth conditional checks if towerHeight destination is valid.
+     * Seventh conditional checks if space is Worker's current space.
+     * Eighth conditional checks if it is the Player's turn.
+     * @param w Worker for position analysis.
+     * @param x int x for x coordinate to validate build position.
+     * @param y int y for y coordinate to validate build position.
+     * @return true only if valid build position.
+     */
+    public boolean validateMovePos(Worker w, int x, int y) {
+<span class="nc bnc" id="L88" title="All 8 branches missed.">        if (x &lt; 0 || y &lt; 0 || x &gt; MAX_BOARD_INDEX || y &gt; MAX_BOARD_INDEX) {</span>
+<span class="nc" id="L89">            return false;</span>
+        }
+<span class="nc bnc" id="L91" title="All 4 branches missed.">        if (x &gt; w.getPosition()[0][0] + 1 || x &lt; w.getPosition()[0][0] - 1) {</span>
+<span class="nc" id="L92">            return false;</span>
+        }
+<span class="nc bnc" id="L94" title="All 4 branches missed.">        if (y &gt; w.getPosition()[0][1] + 1 || y &lt; w.getPosition()[0][1] - 1) {</span>
+<span class="nc" id="L95">            return false;</span>
+        }
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (board.getSpace(x, y).getTowerHeight() &gt;= MAX_BOARD_INDEX) {</span>
+<span class="nc" id="L98">            return false;</span>
+        }
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (board.getSpace(x, y).getOccupancy()) {</span>
+<span class="nc" id="L101">            return false;</span>
+        }
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (board.getSpace(x, y).getTowerHeight() &gt; board.getSpace(w.getPosition()).getTowerHeight() + 1) {</span>
+<span class="nc" id="L104">            return false;</span>
+        }
+<span class="nc bnc" id="L106" title="All 4 branches missed.">        if (x == w.getPosition()[0][0] &amp;&amp; y == w.getPosition()[0][1]) {</span>
+<span class="nc" id="L107">            return false;</span>
+        }
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        if (w.getOwner() != turn) {</span>
+<span class="nc" id="L110">            return false;</span>
+        }
+<span class="nc" id="L112">        return true;</span>
+    }
+
+    /**
+     * Build method that moves a worker to a valid space. Editing to run on GHActions.
+     * Calls the validateBuildPos() method to verify destination validity.
+     * Returns -1 if worker cannot build on specified space, or returns
+     * the resulting height of tower that worker built.
+     * @param workerNum a player's worker number to build.
+     * @param x x coordinate for player's worker to build on.
+     * @param y y coordinate for player's worker to build on.
+     * @return int -1 if unsuccessful, or resulting towerHeight if successful.
+     */
+    public int build(int workerNum, int x, int y) {
+<span class="nc" id="L126">        int[][] buildPos = new int[1][2];</span>
+<span class="nc" id="L127">        buildPos[0][0] = x;</span>
+<span class="nc" id="L128">        buildPos[0][1] = y;</span>
+<span class="nc" id="L129">        Player p = getPlayerHelper(turn);</span>
+<span class="nc" id="L130">        Worker w = getWorkerHelper(p, workerNum);</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (!validateBuildPos(w, x, y)) {</span>
+<span class="nc" id="L132">            return -1;</span>
+        }
+<span class="nc" id="L134">        board.getSpace(x, y).buildTower();</span>
+<span class="nc" id="L135">        endTurn(p);</span>
+<span class="nc" id="L136">        return board.getSpace(x, y).getTowerHeight();</span>
+    }
+
+    /**
+     * Move method that moves a worker to a valid space.
+     * Calls the validateMovePos() method to verify destination validity.
+     * Returns worker's position after the method is called.
+     * @param workerNum a player's worker number to be moved.
+     * @param x x coordinate for player's worker to move it.
+     * @param y y coordinate for player's worker to move to.
+     * @return int[][] array position of worker after method completion.
+     */
+    public Game move(int workerNum, int x, int y) {
+<span class="nc" id="L149">        int[][] movePos = new int[1][2];</span>
+<span class="nc" id="L150">        movePos[0][0] = x;</span>
+<span class="nc" id="L151">        movePos[0][1] = y;</span>
+<span class="nc" id="L152">        Player p = getPlayerHelper(turn);</span>
+<span class="nc" id="L153">        Worker w = getWorkerHelper(p, workerNum);</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (!validateMovePos(w, x, y)) {</span>
+<span class="nc" id="L155">            return null;</span>
+        }
+<span class="nc" id="L157">        board.getSpace(p.workerGetPosHelper(w)).vacate();</span>
+<span class="nc" id="L158">        p.workerPosSetter(w, x, y);</span>
+<span class="nc" id="L159">        board.getSpace(p.workerGetPosHelper(w)).occupy();</span>
+        // If we make it past the move validation and
+        // the move is successful, return a 2d int
+        // array containing [-1][-1] and end the game.
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        if (board.getSpace(x, y).getTowerHeight() == WIN_CONDITION) {</span>
+<span class="nc" id="L164">            endGame(p);</span>
+        }
+<span class="nc" id="L166">        p.hasMoved();</span>
+<span class="nc" id="L167">        return new Game(board);</span>
+    }
+
+    private void endTurn(Player p) {
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        if (turn == 1) {</span>
+<span class="nc" id="L172">            turn = 2;</span>
+        } else {
+<span class="nc" id="L174">            turn = 1;</span>
+        }
+<span class="nc" id="L176">        p.endOfTurn();</span>
+<span class="nc" id="L177">        p.getWorkerOne().endOfTurn();</span>
+<span class="nc" id="L178">        p.getWorkerTwo().endOfTurn();</span>
+<span class="nc" id="L179">    }</span>
+
+    private void endGame(Player p) {
+<span class="nc" id="L182">        System.out.println(&quot;Well done, Player &quot; + p.getPlayerNumber() + &quot;! You have won the game.&quot;);</span>
+<span class="nc" id="L183">    }</span>
+
+    /**
+     * Returns an unsafe copy of the board.
+     * @return a reference to board.
+     */
+    private Board getBoard() {
+<span class="nc" id="L190">        return board;</span>
+    }
+
+    public int getTurn() {
+<span class="nc" id="L194">        return turn;</span>
+    }
+
+    /**
+     * Helper method to get reference to player object.
+     * @param num a number of the player.
+     * @return Player a reference to player object.
+     */
+    public Player getPlayerHelper(int num) {
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        if (num == 1) {</span>
+<span class="nc" id="L204">            return playerOne;</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">        } else if (num == 2) {</span>
+<span class="nc" id="L206">            return playerTwo;</span>
+        } else {
+<span class="nc" id="L208">            return null;</span>
+        }
+    }
+
+    /**
+     * Helper method to get reference to worker object.
+     * @param p Player that has a worker.
+     * @param num int Worker that has a number num.
+     * @return Worker a reference to worker object.
+     */
+    public Worker getWorkerHelper(Player p, int num) {
+<span class="nc bnc" id="L219" title="All 2 branches missed.">        if (num == 1) {</span>
+<span class="nc" id="L220">            return p.getWorkerOne();</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">        } else if (num == 2) {</span>
+<span class="nc" id="L222">            return p.getWorkerTwo();</span>
+        } else {
+<span class="nc" id="L224">            return null;</span>
+        }
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

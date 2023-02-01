@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Player.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hw3-santorini-dzagardo</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Player.java</span></div><h1>Player.java</h1><pre class="source lang-java linenums">/**
+ * Player class has 2 workers and a player number.
+ * The Player constructor takes a number
+ * for player number (1, 2, 3, 4), and passes it through
+ * to the worker constructor to assign two workers
+ * with an assigned player number.
+ */
+public class Player {
+
+    private int playerNumber;
+    private boolean hasMoved;
+    private Worker workerOne;
+    private Worker workerTwo;
+
+    /**
+     * Constructor for Player. Making trivial change.
+     * @param num
+     */
+<span class="fc" id="L19">    public Player(int num) {</span>
+<span class="fc" id="L20">        playerNumber = num;</span>
+<span class="fc" id="L21">        this.workerOne = new Worker(num);</span>
+<span class="fc" id="L22">        this.workerTwo = new Worker(num);</span>
+<span class="fc" id="L23">    }</span>
+
+    public Worker getWorkerOne() {
+<span class="fc" id="L26">        return workerOne;</span>
+    }
+
+    public Worker getWorkerTwo() {
+<span class="fc" id="L30">        return workerTwo;</span>
+    }
+
+    public int getPlayerNumber() {
+<span class="nc" id="L34">        return playerNumber;</span>
+    }
+
+    public boolean getHasMoved() {
+<span class="fc" id="L38">        return hasMoved;</span>
+    }
+
+    public void hasMoved() {
+<span class="fc" id="L42">        hasMoved = true;</span>
+<span class="fc" id="L43">    }</span>
+
+    public void endOfTurn() {
+<span class="nc" id="L46">        hasMoved = false;</span>
+<span class="nc" id="L47">    }</span>
+
+    public void workerPosSetter(Worker w, int x, int y) {
+<span class="fc" id="L50">        w.setPosition(x, y);</span>
+<span class="fc" id="L51">    }</span>
+
+    public int[][] workerGetPosHelper(Worker w) {
+<span class="fc" id="L54">        return w.getPosition();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
